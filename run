@@ -2,4 +2,4 @@
 
 source .venv/bin/activate
 source .env
-python -m otdb
+python -m ohdb

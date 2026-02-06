@@ -43,7 +43,7 @@ async def handle_cli(message):
     else:
         await message.channel.send('unknown command')
 
-class OTDB(discord.Client):
+class OHDB(discord.Client):
     async def on_ready(self):
         print('ready!')
 
@@ -58,5 +58,5 @@ class OTDB(discord.Client):
 intents = discord.Intents.default()
 intents.message_content = True
 
-client = OTDB(intents=intents)
+client = OHDB(intents=intents)
 client.run(BOT_TOKEN)
