@@ -1,0 +1,8 @@
+#!/bin/bash
+
+ssh datahq <<EOF
+cd projects/obsidian-todo-discord-bot
+git fetch
+git rebase
+systemctl --user restart obsidian-todo-discord-bot
+EOF
