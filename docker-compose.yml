@@ -1,0 +1,15 @@
+services:
+  docli:
+    image: jerrington/docli:latest
+    env_file: .env # configure BOT_TOKEN in here
+    environment:
+      - VAULT_DIR: /vault
+      - TODO_PATH: Todo.md
+      - HABITS_PATH: Habits.md
+      - TASK_TAG: "#task"
+    volumes:
+      - vault:/vault
+      - $HOME/.ssh/id_ed25519:/root/ssh/id_ed25519:ro
+
+volumes:
+  vault:
