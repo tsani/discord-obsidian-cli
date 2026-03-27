@@ -70,7 +70,7 @@ async def cmd_todo(channel, args):
 async def cmd_track(channel, args):
     t = date.today().strftime("%Y-%m-%d")
     habit = ' '.join(args.habit).lower().replace(' ', '-')
-    habit_content = f'- [x] #habit/{habit} {EMOJI["calendar"]} {t} {EMOJI["checkmark"]} {t}'
+    habit_content = f'- [x] {TASK_TAG}#habit/{habit} {EMOJI["calendar"]} {t} {EMOJI["checkmark"]} {t}'
     await git(VAULT_DIR, 'pull', '--rebase')
     async with aiofiles.open(HABITS_PATH, 'a') as f:
         await f.write(habit_content + '\n')
