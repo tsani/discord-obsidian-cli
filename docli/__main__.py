@@ -22,6 +22,7 @@ VAULT_DIR = getenv('VAULT_DIR') or die('missing VAULT_DIR env var')
 TODO_PATH = getenv('TODO_PATH') or os.path.join(VAULT_DIR, 'Todo.md')
 HABITS_PATH = getenv('HABITS_PATH') or os.path.join(VAULT_DIR, 'Habits.md')
 TASK_TAG = getenv('TASK_TAG') or ''
+CHANNEL_NAME = getenv('CHANNEL_NAME') or die('missing CHANNEL_NAME env var')
 if TASK_TAG: TASK_TAG += ' '
 
 RESPONSES = [
@@ -116,7 +117,7 @@ class DiscordObsidianCLI(discord.Client):
     async def on_message(self, message):
         if message.author == self.user: return
 
-        if message.channel.name == 'jake-cli':
+        if message.channel.name == CHANNEL_NAME:
             async with message.channel.typing():
                 try:
                     await handle_cli(message.channel, message.content)
