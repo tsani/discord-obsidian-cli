@@ -3,17 +3,17 @@ services:
     image: jerrington/docli:latest
     env_file: .env # configure BOT_TOKEN in here
     environment:
-      VAULT_DIR: /vault
-      TODO_PATH: Todo.md
-      HABITS_PATH: Habits.md
-      TASK_TAG: "#task"
-      CHANNEL_NAME: jake-cli
-      GIT_NAME: "Discord Obsidian CLI"
+      - "VAULT_DIR=/vault"
+      - "TODO_PATH=Todo.md"
+      - "HABITS_PATH=Habits.md"
+      - "TASK_TAG=#task"
+      - "CHANNEL_NAME=jake-cli"
+      - "GIT_NAME=Discord Obsidian CLI"
       # GIT_EMAIL: # Configure here or in .env
       # GIT_UPSTREAM: # Configure here or in .env
     volumes:
       - vault:/vault
-      - $HOME/.ssh/id_ed25519:/root/ssh/id_ed25519:ro
+      - $HOME/.ssh/id_rsa:/root/.ssh/id_rsa:ro
 
 volumes:
   vault:
