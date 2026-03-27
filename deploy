@@ -1,8 +1,13 @@
 #!/bin/bash
+set -e
 
-ssh datahq <<EOF
-cd projects/obsidian-todo-discord-bot
-git fetch
-git rebase
-systemctl --user restart obsidian-todo-discord-bot
+./build
+docker push jerrington/docli:latest
+ssh j <<EOF
+set -e
+cd /site/nether-portal
+docker-compose down &
+docker pull jerrington/docli:latest &
+wait
+docker-compose up -d
 EOF

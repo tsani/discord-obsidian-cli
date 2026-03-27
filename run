@@ -1,5 +1,5 @@
 #!/bin/bash
 
 source .venv/bin/activate
-source .env
-python -m ohdb
+source <(sed 's/.*/export \0/' .env)
+python -m docli
