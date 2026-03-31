@@ -6,6 +6,8 @@ services:
       - "VAULT_DIR=/vault"
       - "TODO_PATH=Todo.md"
       - "HABITS_PATH=Habits.md"
+      # If you use separate files, set up custom env vars
+      # to specify their vault-relative paths
       - "TASK_TAG=#task"
       - "GIT_NAME=Discord Obsidian CLI"
       # GIT_EMAIL: # Configure here or in .env
@@ -13,6 +15,9 @@ services:
     volumes:
       - vault:/vault
       - $HOME/.ssh/id_rsa:/root/.ssh/id_rsa:ro
+      # - ./config.py:/app/docli/config.py
+      # # ^ Configure your desired handlers like this
+      # # And in this config, use your custom env vars
 
 volumes:
   vault:
