@@ -10,4 +10,9 @@ docker-compose down &
 docker pull jerrington/docli:latest &
 wait
 docker-compose up -d
+
+cd /site/homescreen
+docker-compose down
+sleep 1
+docker-compose up -d
 EOF
