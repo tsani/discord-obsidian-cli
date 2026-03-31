@@ -7,7 +7,6 @@ services:
       - "TODO_PATH=Todo.md"
       - "HABITS_PATH=Habits.md"
       - "TASK_TAG=#task"
-      - "CHANNEL_NAME=jake-cli"
       - "GIT_NAME=Discord Obsidian CLI"
       # GIT_EMAIL: # Configure here or in .env
       # GIT_UPSTREAM: # Configure here or in .env
