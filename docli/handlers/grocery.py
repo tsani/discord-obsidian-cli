@@ -20,7 +20,7 @@ class GroceryHandler(ChannelHandler):
                 item = f'[[{args.item[0]}]]'
         else:
             item = ' '.join(args.item)
-        content = f'- [ ] {TASK_TAK}#grocery {item}'
+        content = f'- [ ] {TASK_TAG}#grocery {item}'
         async with git_transaction(f'grocery: {item}') as g:
             await append_line(self.target_path, content)
             g.add(self.target_path)
