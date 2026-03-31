@@ -16,8 +16,9 @@ class GroceryHandler(ChannelHandler):
 
     async def _grocery_list(self, channel):
         prefix = f'- [ ] {TASK_TAG}#grocery'
+        prefix_re = f'- \\[ \\] {TASK_TAG}#grocery' # yuck
         result = subprocess.run(
-            ['find', VAULT_DIR, '-name', '*.md', '-exec', 'grep', '-h', '--', prefix, '{}', '+'],
+            ['find', VAULT_DIR, '-name', '*.md', '-exec', 'grep', '-h', '--', prefix_re, '{}', '+'],
             capture_output=True, text=True,
         )
         lines = [l for l in result.stdout.splitlines() if l.strip()]
