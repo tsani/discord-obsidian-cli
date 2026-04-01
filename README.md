@@ -131,11 +131,13 @@ All path values are **relative to the vault root** (`/vault`).
 # docli/config.py (default)
 from .handlers.track import TrackHandler
 from .handlers.todo import TodoHandler
-from os import environ
+from os import environ, path
+
+absolute = lambda x: path.join(environ['VAULT_DIR'], x)
 
 CHANNEL_HANDLERS = {
-    'track': TrackHandler(environ['HABITS_PATH']),
-    'todo':  TodoHandler(environ['TODO_PATH']),
+    'track': TrackHandler(absolute(environ['HABITS_PATH'])),
+    'todo':  TodoHandler(absolute(environ['TODO_PATH'])),
 }
 ```
 
@@ -147,13 +149,15 @@ from docli.handlers.track import TrackHandler
 from docli.handlers.todo import TodoHandler
 from docli.handlers.grocery import GroceryHandler
 from docli.handlers.freezer import FreezerHandler
-from os import environ
+from os import environ, path
+
+absolute = lambda x: path.join(environ['VAULT_DIR'], x)
 
 CHANNEL_HANDLERS = {
-    'track':   TrackHandler(environ['HABITS_PATH']),
-    'todo':    TodoHandler(environ['TODO_PATH']),
-    'grocery': GroceryHandler(environ['GROCERY_PATH']),
-    'freezer': FreezerHandler(environ['FREEZER_PATH']),
+    'track':   TrackHandler(absolute(environ['HABITS_PATH'])),
+    'todo':    TodoHandler(absolute(environ['TODO_PATH'])),
+    'grocery': GroceryHandler(absolute(environ['GROCERY_PATH'])),
+    'freezer': FreezerHandler(absolute(environ['FREEZER_PATH'])),
 }
 ```
 
