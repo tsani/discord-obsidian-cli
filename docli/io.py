@@ -26,9 +26,12 @@ async def append_line(path, line):
                 await f.write('\n')
         await f.write(line + '\n')
 
+async def git_pull():
+    await git(VAULT_DIR, 'pull', '--rebase')
+
 @asynccontextmanager
 async def git_transaction(message):
-    await git(VAULT_DIR, 'pull', '--rebase')
+    await git_pull()
     paths = []
     class G:
         def add(self, path):

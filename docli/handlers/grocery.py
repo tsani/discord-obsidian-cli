@@ -5,7 +5,7 @@ from datetime import date
 
 from ..env import TASK_TAG, VAULT_DIR
 from ..formatting import EMOJI, RESPONSES
-from ..io import git_transaction, append_line
+from ..io import git_transaction, git_pull, append_line
 from . import ChannelHandler, DiscordArgumentParser
 
 class GroceryHandler(ChannelHandler):
@@ -15,6 +15,7 @@ class GroceryHandler(ChannelHandler):
         self.target_path = target_path
 
     async def _grocery_list(self, channel):
+        await git_pull()
         prefix = f'- [ ] {TASK_TAG}#grocery'
         prefix_re = f'- \\[ \\] {TASK_TAG}#grocery' # yuck
         result = subprocess.run(
