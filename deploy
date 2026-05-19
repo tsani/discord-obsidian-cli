@@ -5,10 +5,16 @@ set -e
 docker push jerrington/docli:latest
 ssh j <<EOF
 set -e
+docker pull jerrington/docli:latest
+
 cd /site/nether-portal
 docker-compose down &
-docker pull jerrington/docli:latest &
-wait
+sleep 1
+docker-compose up -d
+
+cd /site/docli-teaching
+docker-compose down &
+sleep 1
 docker-compose up -d
 
 cd /site/homescreen
