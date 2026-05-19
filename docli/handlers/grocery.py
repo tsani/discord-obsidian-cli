@@ -1,11 +1,10 @@
 import re
 import random
 import subprocess
-from datetime import date
 
 from ..env import TASK_TAG, VAULT_DIR
 from ..formatting import EMOJI, RESPONSES
-from ..io import git_transaction, git_pull, append_line
+from ..io import git_transaction, git_pull, append_line, todo_line
 from . import ChannelHandler, DiscordArgumentParser
 
 class GroceryHandler(ChannelHandler):
@@ -41,7 +40,7 @@ class GroceryHandler(ChannelHandler):
         items = item.split(', ')
         async with git_transaction(f'grocery: {item}') as g:
             for item in items:
-                content = f'- [ ] {TASK_TAG}#grocery [[{item}]]'
+                content = todo_line(f'{TASK_TAG}#grocery [[{item}]]')
                 await append_line(self.target_path, content)
             g.add(self.target_path)
         await channel.send(random.choice(RESPONSES))

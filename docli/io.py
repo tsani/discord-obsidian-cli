@@ -1,6 +1,7 @@
 import asyncio
 import aiofiles
 from contextlib import asynccontextmanager
+from datetime import date
 
 from .exceptions import Error
 from .env import VAULT_DIR
@@ -14,6 +15,11 @@ async def git(vault_dir, *args):
     stdout, stderr = await proc.communicate()
     if proc.returncode != 0:
         raise Error(f'git {args[0]} failed: {stderr.decode().strip()}')
+
+
+def todo_line(content):
+    today = date.today().isoformat()
+    return f'- [ ] {content} ➕ {today}'
 
 
 async def append_line(path, line):

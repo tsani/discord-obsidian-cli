@@ -5,7 +5,7 @@ import aiofiles
 
 from ..env import TASK_TAG
 from ..formatting import RESPONSES
-from ..io import git_transaction, git_pull, append_line
+from ..io import git_transaction, git_pull, append_line, todo_line
 from . import ChannelHandler, DiscordArgumentParser
 
 # Matches a freezer inventory line, capturing quantity (group 1) and the rest (group 2).
@@ -61,7 +61,7 @@ class FreezerHandler(ChannelHandler):
     async def _fallback_todo(self, channel, args, item, reason):
         """Add a manual-processing todo when we can't auto-update the inventory."""
         entry = f'{args.command} {args.quantity} [[{item}]]'
-        content = f'- [ ] {TASK_TAG}#freezer {entry}'
+        content = todo_line(f'{TASK_TAG}#freezer {entry}')
         async with git_transaction(f'freezer: {entry}') as g:
             await append_line(self.target_path, content)
             g.add(self.target_path)
@@ -79,14 +79,14 @@ class FreezerHandler(ChannelHandler):
 
             if len(matches) == 0:
                 await append_line(self.target_path,
-                    f'- [ ] {TASK_TAG}#freezer {args.command} {args.quantity} [[{item}]]')
+                    todo_line(f'{TASK_TAG}#freezer {args.command} {args.quantity} [[{item}]]'))
                 g.add(self.target_path)
                 await channel.send(f'Item not found in inventory. Added a todo instead.')
                 return
 
             if len(matches) > 1:
                 await append_line(self.target_path,
-                    f'- [ ] {TASK_TAG}#freezer {args.command} {args.quantity} [[{item}]]')
+                    todo_line(f'{TASK_TAG}#freezer {args.command} {args.quantity} [[{item}]]'))
                 g.add(self.target_path)
                 await channel.send(f'Multiple matches found. Added a todo instead.')
                 return
@@ -96,7 +96,7 @@ class FreezerHandler(ChannelHandler):
             m = LINE_RE.match(line)
             if not m:
                 await append_line(self.target_path,
-                    f'- [ ] {TASK_TAG}#freezer {args.command} {args.quantity} [[{item}]]')
+                    todo_line(f'{TASK_TAG}#freezer {args.command} {args.quantity} [[{item}]]'))
                 g.add(self.target_path)
                 await channel.send(f"Couldn't parse the inventory line. Added a todo instead.")
                 return

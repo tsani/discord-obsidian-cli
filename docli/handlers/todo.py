@@ -2,7 +2,7 @@ import random
 
 from ..env import TASK_TAG
 from ..formatting import RESPONSES
-from ..io import git_transaction, append_line
+from ..io import git_transaction, append_line, todo_line
 from . import ChannelHandler, DiscordArgumentParser
 
 class TodoHandler(ChannelHandler):
@@ -14,6 +14,6 @@ class TodoHandler(ChannelHandler):
     async def cmd(self, channel, args):
         task = ' '.join(args.task).lower()
         async with git_transaction(f'todo: {task}') as g:
-            await append_line(self.target_path, f'- [ ] {TASK_TAG}{task}')
+            await append_line(self.target_path, todo_line(f'{TASK_TAG}{task}'))
             g.add(self.target_path)
         await channel.send(random.choice(RESPONSES))
