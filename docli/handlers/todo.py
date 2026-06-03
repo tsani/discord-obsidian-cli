@@ -12,7 +12,7 @@ class TodoHandler(ChannelHandler):
         self.target_path = target_path
 
     async def cmd(self, channel, args):
-        task = ' '.join(args.task).lower()
+        task = ' '.join(args.task)
         async with git_transaction(f'todo: {task}') as g:
             await append_line(self.target_path, todo_line(f'{TASK_TAG}{task}'))
             g.add(self.target_path)
